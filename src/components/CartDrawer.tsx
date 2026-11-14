@@ -181,7 +181,7 @@ export default function CartDrawer({
     >
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-[#1E1A14]/45 backdrop-blur-xs"
+        className="fixed inset-0 bg-[#1E1A14]/45 backdrop-blur-xs touch-none"
       />
 
       <aside className="relative z-10 flex h-[100dvh] w-full max-w-md flex-col bg-white border-l border-[#E6E0D4] shadow-2xl">
@@ -204,7 +204,7 @@ export default function CartDrawer({
         </div>
 
         {/* Drawer Body */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-5 py-4 space-y-5">
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 sm:px-5 py-4 space-y-5">
           {detailedItems.length === 0 ? (
             <div className="py-16 text-center">
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#F5F2EB] text-[#635B4E]">
@@ -229,6 +229,8 @@ export default function CartDrawer({
                     <img
                       src={item.product.image}
                       alt={item.product.imageAlt}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="h-16 w-16 shrink-0 rounded-lg object-cover border border-[#E6E0D4]"
                     />

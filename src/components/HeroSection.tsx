@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import type { PointerEvent } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Star } from 'lucide-react';
 import { HERO_SHOWCASE_SLIDES } from '../data/catalog';
 import { BlankoSeries } from '../types/catalog';
@@ -20,21 +21,87 @@ export default function HeroSection({
   onScrollToCatalog,
 }: HeroSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const dragStateRef = useRef({
+    active: false,
+    startX: 0,
+    startScrollLeft: 0,
+    moved: false,
+  });
 
   const totalSlides = HERO_SHOWCASE_SLIDES.length;
 
+  const scrollToSlide = (targetIndex: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const clampedIndex = ((targetIndex % totalSlides) + totalSlides) % totalSlides;
+    const card = track.children[clampedIndex] as HTMLElement | undefined;
+    if (card) {
+      track.scrollTo({
+        left: card.offsetLeft,
+        behavior: 'smooth',
+      });
+    }
+    setActiveIndex(clampedIndex);
+  };
+
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    scrollToSlide(activeIndex - 1);
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % totalSlides);
+    scrollToSlide(activeIndex + 1);
   };
 
-  const visibleSlides = [
-    HERO_SHOWCASE_SLIDES[activeIndex],
-    HERO_SHOWCASE_SLIDES[(activeIndex + 1) % totalSlides],
-  ];
+  const handleTrackScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = Array.from(track.children) as HTMLElement[];
+    let nearestIdx = 0;
+    let minDiff = Infinity;
+    cards.forEach((card, idx) => {
+      const diff = Math.abs(card.offsetLeft - track.scrollLeft);
+      if (diff < minDiff) {
+        minDiff = diff;
+        nearestIdx = idx;
+      }
+    });
+    setActiveIndex(nearestIdx);
+  };
+
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    const track = trackRef.current;
+    if (!track) return;
+    dragStateRef.current = {
+      active: true,
+      startX: e.clientX,
+      startScrollLeft: track.scrollLeft,
+      moved: false,
+    };
+    setIsDragging(true);
+  };
+
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    const drag = dragStateRef.current;
+    const track = trackRef.current;
+    if (!drag.active || !track) return;
+    const delta = e.clientX - drag.startX;
+    if (Math.abs(delta) > 6) {
+      drag.moved = true;
+    }
+    track.scrollLeft = drag.startScrollLeft - delta;
+  };
+
+  const handlePointerEnd = () => {
+    if (!dragStateRef.current.active) return;
+    dragStateRef.current.active = false;
+    setIsDragging(false);
+    setTimeout(() => {
+      dragStateRef.current.moved = false;
+    }, 50);
+  };
 
   return (
     <section
@@ -113,21 +180,39 @@ export default function HeroSection({
             </div>
           </div>
 
-          {/* Right Column: Dual Showcase Carousel */}
-          <div className="lg:col-span-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {visibleSlides.map((slide, idx) => (
+          {/* Right Column: Swipeable & Slideable Showcase Carousel */}
+          <div className="lg:col-span-6 min-w-0">
+            <div
+              ref={trackRef}
+              onScroll={handleTrackScroll}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerEnd}
+              onPointerCancel={handlePointerEnd}
+              onPointerLeave={handlePointerEnd}
+              className={`flex gap-3.5 sm:gap-4 overflow-x-auto no-scrollbar pb-1 select-none ${
+                isDragging
+                  ? 'cursor-grabbing'
+                  : 'cursor-grab snap-x snap-mandatory scroll-smooth'
+              }`}
+            >
+              {HERO_SHOWCASE_SLIDES.map((slide, idx) => (
                 <article
                   key={slide.id}
-                  onClick={() => onSelectSeries(slide.series)}
-                  className={`group cursor-pointer rounded-2xl bg-white p-2.5 sm:p-3 border border-[#E6E0D4] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${
-                    idx === 1 ? 'hidden sm:block' : ''
-                  }`}
+                  onClick={() => {
+                    if (dragStateRef.current.moved) return;
+                    onSelectSeries(slide.series);
+                  }}
+                  className="group w-[86%] sm:w-[calc(50%-0.5rem)] shrink-0 snap-start rounded-2xl bg-white p-2.5 sm:p-3 border border-[#E6E0D4] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <div className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#F5F2EB]">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#F5F2EB]">
                     <img
                       src={slide.image}
                       alt={slide.imageAlt}
+                      loading={idx < 2 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      fetchPriority={idx === 0 ? 'high' : 'auto'}
+                      draggable={false}
                       referrerPolicy="no-referrer"
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     />
@@ -173,14 +258,18 @@ export default function HeroSection({
                 </button>
               </div>
 
-              <div className="flex items-center gap-1.5" aria-hidden="true">
+              <div className="flex items-center gap-1.5">
                 {HERO_SHOWCASE_SLIDES.map((s, idx) => (
-                  <span
+                  <button
                     key={s.id}
-                    className={`h-1.5 rounded-full transition-all duration-200 ${
+                    type="button"
+                    onClick={() => scrollToSlide(idx)}
+                    aria-label={`Lihat ${s.title}`}
+                    aria-current={idx === activeIndex ? 'true' : 'false'}
+                    className={`h-2 rounded-full transition-all duration-200 cursor-pointer ${
                       idx === activeIndex
-                        ? 'w-5 bg-[#7D622E]'
-                        : 'w-1.5 bg-[#D6CFC1]'
+                        ? 'w-6 bg-[#7D622E]'
+                        : 'w-2 bg-[#D6CFC1] hover:bg-[#B8AE9B]'
                     }`}
                   />
                 ))}

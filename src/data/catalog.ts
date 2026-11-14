@@ -1,9 +1,3 @@
-import imgCetakWaxseal from '../assets/images/serasa_cetak_waxseal_1794633084515.jpg';
-import imgAdatJawagold from '../assets/images/serasa_adat_jawagold_1794633085851.jpg';
-import imgHardcoverBotanical from '../assets/images/serasa_cetak_hardcover_botanical_1794633460927.jpg';
-import imgKraftRustic from '../assets/images/serasa_cetak_kraft_rustic_1794633462248.jpg';
-import imgMonokromLipat from '../assets/images/serasa_cetak_monokrom_lipat_1794633462638.jpg';
-import imgAmplopSage from '../assets/images/serasa_cetak_amplop_sage_1794633462242.jpg';
 import {
   BlankoSeries,
   CatalogItem,
@@ -49,7 +43,7 @@ export const HERO_SHOWCASE_SLIDES: HeroShowcaseSlide[] = [
     title: 'Seri CANTIK & AVIS',
     countLabel: '19 Model · Mulai Rp 1.000/pcs',
     series: 'CANTIK',
-    image: imgCetakWaxseal,
+    image: assetUrl('/assets/catalog/image_c6a0cd46.webp'),
     imageAlt: 'Koleksi undangan blangko seri CANTIK dan AVIS siap cetak',
   },
   {
@@ -57,7 +51,7 @@ export const HERO_SHOWCASE_SLIDES: HeroShowcaseSlide[] = [
     title: 'Seri HEPI & HC',
     countLabel: '22 Model · Mulai Rp 1.000/pcs',
     series: 'HEPI',
-    image: imgMonokromLipat,
+    image: assetUrl('/assets/catalog/image_c15f888b.webp'),
     imageAlt: 'Koleksi undangan blangko seri HEPI dan HC modern lipat',
   },
   {
@@ -65,7 +59,7 @@ export const HERO_SHOWCASE_SLIDES: HeroShowcaseSlide[] = [
     title: 'Seri GS Eksklusif',
     countLabel: '11 Model · Mulai Rp 1.000/pcs',
     series: 'GS',
-    image: imgHardcoverBotanical,
+    image: assetUrl('/assets/catalog/image_faec82b2.webp'),
     imageAlt: 'Koleksi undangan blangko eksklusif seri GS',
   },
   {
@@ -73,7 +67,7 @@ export const HERO_SHOWCASE_SLIDES: HeroShowcaseSlide[] = [
     title: 'Seri RAYYA & BU/U',
     countLabel: '16 Model · Mulai Rp 1.000/pcs',
     series: 'RAYYA',
-    image: imgAdatJawagold,
+    image: assetUrl('/assets/catalog/image_b2dd84ba.webp'),
     imageAlt: 'Koleksi undangan blangko seri RAYYA dan BU / U',
   },
 ];
@@ -84,7 +78,7 @@ export const CATEGORY_BENTO_DATA = {
     title: 'Seri Ekonomis & Populer',
     description:
       'Pilihan undangan blangko favorit dengan harga ramah mulai Rp 1.000 per lembar—ideal untuk kebutuhan resepsi dan syukuran.',
-    image: imgCetakWaxseal,
+    image: assetUrl('/assets/catalog/image_a56f71cb.webp'),
     imageAlt: 'Undangan blangko seri ekonomis dan populer',
     subItems: [
       { label: 'Seri AVIS (5 Model)', series: 'AVIS' as BlankoSeries },
@@ -101,7 +95,7 @@ export const CATEGORY_BENTO_DATA = {
     title: 'Seri HEPI Modern',
     description:
       'Desain blangko modern dengan tata letak bersih, motif bunga lembut, hingga format lipat elegan.',
-    image: imgMonokromLipat,
+    image: assetUrl('/assets/catalog/image_10603b96.webp'),
     imageAlt: 'Undangan blangko seri HEPI modern',
     subItems: [
       { label: 'Seri HEPI 24 (5 Model)', series: 'HEPI' as BlankoSeries },
@@ -113,7 +107,7 @@ export const CATEGORY_BENTO_DATA = {
     title: 'Seri GS & RAYYA',
     description:
       'Koleksi blangko elegan dengan variasi kertas berkarakter, motif modern, dan proporsi kartu serasi.',
-    image: imgHardcoverBotanical,
+    image: assetUrl('/assets/catalog/image_3f121f45.webp'),
     imageAlt: 'Undangan blangko eksklusif seri GS dan RAYYA',
     subItems: [
       { label: 'Seri GS 022 – 032 (11 Model)', series: 'GS' as BlankoSeries },
@@ -221,49 +215,49 @@ const SERIES_VISUALS: Record<
 > = {
   AVIS: {
     seriesLabel: 'Blangko AVIS',
-    image: '/assets/aistudio/image_a56f71cb.png',
+    image: '/assets/catalog/image_a56f71cb.webp',
     previewStyle: 'kraft-rustic',
     description:
       'Undangan blangko seri AVIS dengan desain klasik-modern yang ringkas, sudah termasuk cetak teks lengkap siap sebar.',
   },
   CANTIK: {
     seriesLabel: 'Blangko CANTIK',
-    image: '/assets/aistudio/image_c6a0cd46.png',
+    image: '/assets/catalog/image_c6a0cd46.webp',
     previewStyle: 'wax-ivory',
     description:
       'Undangan blangko seri CANTIK bernuansa floral lembut dan tata letak rapi, populer untuk acara akad maupun resepsi.',
   },
   HC: {
     seriesLabel: 'Blangko HC',
-    image: '/assets/aistudio/image_209e5ab0.png',
+    image: '/assets/catalog/image_209e5ab0.webp',
     previewStyle: 'forest-ribbon',
     description:
       'Undangan blangko seri HC berpenampilan formal dan elegan dengan pilihan lipatan rapi dan komposisi warna seimbang.',
   },
   HEPI: {
     seriesLabel: 'Blangko HEPI',
-    image: '/assets/aistudio/image_c15f888b.png',
+    image: '/assets/catalog/image_c15f888b.webp',
     previewStyle: 'monochrome-fold',
     description:
       'Undangan blangko seri HEPI edisi 23 & 24 berdesain kontemporer minimalis, nyaman dibaca dan mudah dibagikan.',
   },
   GS: {
     seriesLabel: 'Blangko GS',
-    image: '/assets/aistudio/image_faec82b2.png',
+    image: '/assets/catalog/image_faec82b2.webp',
     previewStyle: 'botanical-hardcover',
     description:
       'Undangan blangko seri GS dengan variasi kertas tebal hingga model eksklusif berdetail ornamen elegan.',
   },
   RAYYA: {
     seriesLabel: 'Blangko RAYYA',
-    image: '/assets/aistudio/image_b2dd84ba.png',
+    image: '/assets/catalog/image_b2dd84ba.webp',
     previewStyle: 'forest-ribbon',
     description:
       'Undangan blangko seri RAYYA berkonsep anggun dengan sentuhan motif modern dan proporsi kartu yang serasi.',
   },
   'BU & U': {
     seriesLabel: 'Seri BU & U Hemat',
-    image: '/assets/aistudio/image_1f6fdad3.png',
+    image: '/assets/catalog/image_1f6fdad3.webp',
     previewStyle: 'kraft-rustic',
     description:
       'Pilihan seri blangko hemat model BU 01–06 dan U 01–06 dengan desain sederhana yang rapi dan ekonomis.',
@@ -271,74 +265,74 @@ const SERIES_VISUALS: Record<
 };
 
 const MODEL_IMAGE_OVERRIDES: Record<string, string> = {
-  'AVIS 128': '/assets/aistudio/image_a56f71cb.png',
-  'AVIS 129': '/assets/aistudio/image_a0f1f77a.png',
-  'AVIS 130': '/assets/aistudio/image_668eefe8.png',
-  'AVIS 131': '/assets/aistudio/image_3e927c57.png',
-  'AVIS 132': '/assets/aistudio/image_83ae548d.png',
-  'CANTIK 94': '/assets/aistudio/image_c6a0cd46.png',
-  'CANTIK 95': '/assets/aistudio/image_3d35984c.png',
-  'CANTIK 96': '/assets/aistudio/image_39d99027.png',
-  'CANTIK 97': '/assets/aistudio/image_784af3b0.png',
-  'CANTIK 98': '/assets/aistudio/image_9d256128.png',
-  'CANTIK 99': '/assets/aistudio/image_24638164.png',
-  'CANTIK 100': '/assets/aistudio/image_5930a3d5.png',
-  'CANTIK 101': '/assets/aistudio/image_9cd0fc64.png',
-  'CANTIK 102': '/assets/aistudio/image_979e13ad.png',
-  'CANTIK 103': '/assets/aistudio/image_0fc8828f.png',
-  'CANTIK 104': '/assets/aistudio/image_9fd8d478.png',
-  'CANTIK 105': '/assets/aistudio/image_4c984ffd.png',
-  'CANTIK 106': '/assets/aistudio/image_864c02d6.png',
-  'CANTIK 107': '/assets/aistudio/image_b44865aa.png',
-  'HC 201': '/assets/aistudio/image_209e5ab0.png',
-  'HC 202': '/assets/aistudio/image_865c21a2.png',
-  'HC 203': '/assets/aistudio/image_81356de2.png',
-  'HC 204': '/assets/aistudio/image_1a6d668e.png',
-  'HC 205': '/assets/aistudio/image_d4e3e460.png',
-  'HEPI 24.031': '/assets/aistudio/image_c15f888b.png',
-  'HEPI 24.032': '/assets/aistudio/image_10603b96.png',
-  'HEPI 24.033': '/assets/aistudio/image_cb775fdd.png',
-  'HEPI 24.034': '/assets/aistudio/image_5d2b472c.png',
-  'HEPI 24.035': '/assets/aistudio/image_496664a9.png',
-  'HEPI 23.011': '/assets/aistudio/image_74a93d58.png',
-  'HEPI 23.012': '/assets/aistudio/image_2b39d0ad.png',
-  'HEPI 23.013': '/assets/aistudio/image_61156a2e.png',
-  'HEPI 23.014': '/assets/aistudio/image_7a85bde7.png',
-  'HEPI 23.015': '/assets/aistudio/image_31affdc4.png',
-  'HEPI 23.016': '/assets/aistudio/image_3c51f913.png',
-  'HEPI 23.023': '/assets/aistudio/image_3c786e52.png',
-  'HEPI 23.024': '/assets/aistudio/image_b7d9c353.png',
-  'HEPI 23.025': '/assets/aistudio/image_aa0f3dc5.png',
-  'HEPI 23.026': '/assets/aistudio/image_3d2a2a50.png',
-  'HEPI 23.027': '/assets/aistudio/image_f70672c8.png',
-  'HEPI 23.028': '/assets/aistudio/image_a1f0a096.png',
-  'GS 022': '/assets/aistudio/image_faec82b2.png',
-  'GS 023': '/assets/aistudio/image_3f121f45.png',
-  'GS 024': '/assets/aistudio/image_8e6685bd.png',
-  'GS 025': '/assets/aistudio/image_d5b0ef98.png',
-  'GS 026': '/assets/aistudio/image_76809d77.png',
-  'GS 027': '/assets/aistudio/image_564318b7.png',
-  'GS 028': '/assets/aistudio/image_1dc36a0b.png',
-  'GS 029': '/assets/aistudio/image_a9d4570d.png',
-  'GS 030': '/assets/aistudio/image_7cc8e9dd.png',
-  'GS 031': '/assets/aistudio/image_9de563a6.png',
-  'GS 032': '/assets/aistudio/image_74e5ca01.png',
-  'RAYYA 366': '/assets/aistudio/image_b2dd84ba.png',
-  'RAYYA 367': '/assets/aistudio/image_113560b4.png',
-  'RAYYA 368': '/assets/aistudio/image_7dc3d2be.png',
-  'RAYYA 369': '/assets/aistudio/image_17ad973f.png',
-  'BU 01': '/assets/aistudio/image_1f6fdad3.png',
-  'BU 02': '/assets/aistudio/image_d5e6ea30.png',
-  'BU 03': '/assets/aistudio/image_3060f695.png',
-  'BU 04': '/assets/aistudio/image_9bb805a7.png',
-  'BU 05': '/assets/aistudio/image_f977c30b.png',
-  'BU 06': '/assets/aistudio/image_ef7dc095.png',
-  'U 01': '/assets/aistudio/image_d7e0121b.png',
-  'U 02': '/assets/aistudio/image_30423166.png',
-  'U 03': '/assets/aistudio/image_d68c8a9e.png',
-  'U 04': '/assets/aistudio/image_d8a14aae.png',
-  'U 05': '/assets/aistudio/image_634219f4.png',
-  'U 06': '/assets/aistudio/image_cafa3b6a.png',
+  'AVIS 128': '/assets/catalog/image_a56f71cb.webp',
+  'AVIS 129': '/assets/catalog/image_a0f1f77a.webp',
+  'AVIS 130': '/assets/catalog/image_668eefe8.webp',
+  'AVIS 131': '/assets/catalog/image_3e927c57.webp',
+  'AVIS 132': '/assets/catalog/image_83ae548d.webp',
+  'CANTIK 94': '/assets/catalog/image_c6a0cd46.webp',
+  'CANTIK 95': '/assets/catalog/image_3d35984c.webp',
+  'CANTIK 96': '/assets/catalog/image_39d99027.webp',
+  'CANTIK 97': '/assets/catalog/image_784af3b0.webp',
+  'CANTIK 98': '/assets/catalog/image_9d256128.webp',
+  'CANTIK 99': '/assets/catalog/image_24638164.webp',
+  'CANTIK 100': '/assets/catalog/image_5930a3d5.webp',
+  'CANTIK 101': '/assets/catalog/image_9cd0fc64.webp',
+  'CANTIK 102': '/assets/catalog/image_979e13ad.webp',
+  'CANTIK 103': '/assets/catalog/image_0fc8828f.webp',
+  'CANTIK 104': '/assets/catalog/image_9fd8d478.webp',
+  'CANTIK 105': '/assets/catalog/image_4c984ffd.webp',
+  'CANTIK 106': '/assets/catalog/image_864c02d6.webp',
+  'CANTIK 107': '/assets/catalog/image_b44865aa.webp',
+  'HC 201': '/assets/catalog/image_209e5ab0.webp',
+  'HC 202': '/assets/catalog/image_865c21a2.webp',
+  'HC 203': '/assets/catalog/image_81356de2.webp',
+  'HC 204': '/assets/catalog/image_1a6d668e.webp',
+  'HC 205': '/assets/catalog/image_d4e3e460.webp',
+  'HEPI 24.031': '/assets/catalog/image_c15f888b.webp',
+  'HEPI 24.032': '/assets/catalog/image_10603b96.webp',
+  'HEPI 24.033': '/assets/catalog/image_cb775fdd.webp',
+  'HEPI 24.034': '/assets/catalog/image_5d2b472c.webp',
+  'HEPI 24.035': '/assets/catalog/image_496664a9.webp',
+  'HEPI 23.011': '/assets/catalog/image_74a93d58.webp',
+  'HEPI 23.012': '/assets/catalog/image_2b39d0ad.webp',
+  'HEPI 23.013': '/assets/catalog/image_61156a2e.webp',
+  'HEPI 23.014': '/assets/catalog/image_7a85bde7.webp',
+  'HEPI 23.015': '/assets/catalog/image_31affdc4.webp',
+  'HEPI 23.016': '/assets/catalog/image_3c51f913.webp',
+  'HEPI 23.023': '/assets/catalog/image_3c786e52.webp',
+  'HEPI 23.024': '/assets/catalog/image_b7d9c353.webp',
+  'HEPI 23.025': '/assets/catalog/image_aa0f3dc5.webp',
+  'HEPI 23.026': '/assets/catalog/image_3d2a2a50.webp',
+  'HEPI 23.027': '/assets/catalog/image_f70672c8.webp',
+  'HEPI 23.028': '/assets/catalog/image_a1f0a096.webp',
+  'GS 022': '/assets/catalog/image_faec82b2.webp',
+  'GS 023': '/assets/catalog/image_3f121f45.webp',
+  'GS 024': '/assets/catalog/image_8e6685bd.webp',
+  'GS 025': '/assets/catalog/image_d5b0ef98.webp',
+  'GS 026': '/assets/catalog/image_76809d77.webp',
+  'GS 027': '/assets/catalog/image_564318b7.webp',
+  'GS 028': '/assets/catalog/image_1dc36a0b.webp',
+  'GS 029': '/assets/catalog/image_a9d4570d.webp',
+  'GS 030': '/assets/catalog/image_7cc8e9dd.webp',
+  'GS 031': '/assets/catalog/image_9de563a6.webp',
+  'GS 032': '/assets/catalog/image_74e5ca01.webp',
+  'RAYYA 366': '/assets/catalog/image_b2dd84ba.webp',
+  'RAYYA 367': '/assets/catalog/image_113560b4.webp',
+  'RAYYA 368': '/assets/catalog/image_7dc3d2be.webp',
+  'RAYYA 369': '/assets/catalog/image_17ad973f.webp',
+  'BU 01': '/assets/catalog/image_1f6fdad3.webp',
+  'BU 02': '/assets/catalog/image_d5e6ea30.webp',
+  'BU 03': '/assets/catalog/image_3060f695.webp',
+  'BU 04': '/assets/catalog/image_9bb805a7.webp',
+  'BU 05': '/assets/catalog/image_f977c30b.webp',
+  'BU 06': '/assets/catalog/image_ef7dc095.webp',
+  'U 01': '/assets/catalog/image_d7e0121b.webp',
+  'U 02': '/assets/catalog/image_30423166.webp',
+  'U 03': '/assets/catalog/image_d68c8a9e.webp',
+  'U 04': '/assets/catalog/image_d8a14aae.webp',
+  'U 05': '/assets/catalog/image_634219f4.webp',
+  'U 06': '/assets/catalog/image_cafa3b6a.webp',
 };
 
 function getItemImage(row: RawBlankoRow): string {
@@ -351,7 +345,7 @@ function getItemImage(row: RawBlankoRow): string {
     row.model === 'U 01 - 06' ||
     row.model === 'BU 01 - 06'
   )
-    return imgKraftRustic;
+    return assetUrl('/assets/catalog/image_1f6fdad3.webp');
   return assetUrl(SERIES_VISUALS[row.series].image);
 }
 

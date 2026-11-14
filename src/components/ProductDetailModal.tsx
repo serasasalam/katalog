@@ -93,7 +93,7 @@ export default function ProductDetailModal({
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-[#1E1A14]/55 backdrop-blur-xs"
+        className="fixed inset-0 bg-[#1E1A14]/55 backdrop-blur-xs touch-none"
       />
 
       {/* Modal Container (Bottom Sheet on mobile, Centered Modal on desktop) */}
@@ -120,7 +120,7 @@ export default function ProductDetailModal({
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 sm:p-7">
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 sm:p-7">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
             {/* Left Column */}
             <div className="lg:col-span-6 space-y-3.5 sm:space-y-4">
@@ -128,6 +128,7 @@ export default function ProductDetailModal({
                 <img
                   src={item.image}
                   alt={item.imageAlt}
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="h-full w-full object-cover"
                 />
