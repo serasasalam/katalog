@@ -12,6 +12,7 @@ import WishlistDrawer from './components/WishlistDrawer';
 import {
   buildCatalogItems,
   CATALOG_ITEMS as FALLBACK_CATALOG_ITEMS,
+  fetchPublicSheetCatalog,
   formatRupiah,
   RawBlankoRow,
   SERIES_ORDER,
@@ -69,14 +70,29 @@ export default function App() {
   const syncCatalogFromSheet = useCallback(async (forceRefresh = false) => {
     setIsSyncing(true);
     try {
-      const endpoint = forceRefresh
-        ? '/api/catalog?refresh=1'
-        : '/api/catalog';
-      const res = await fetch(endpoint, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Sync failed');
-      const data: { items?: RawBlankoRow[] } = await res.json();
-      if (Array.isArray(data.items) && data.items.length > 0) {
-        setCatalogItems(buildCatalogItems(data.items));
+      let rows: RawBlankoRow[] | null = null;
+      try {
+        const endpoint = forceRefresh
+          ? '/api/catalog?refresh=1'
+          : '/api/catalog';
+        const res = await fetch(endpoint, { cache: 'no-store' });
+        const contentType = res.headers.get('content-type') || '';
+        if (res.ok && contentType.includes('application/json')) {
+          const data: { items?: RawBlankoRow[] } = await res.json();
+          if (Array.isArray(data.items) && data.items.length > 0) {
+            rows = data.items;
+          }
+        }
+      } catch {
+        // Fallback to direct public Google Sheets CSV on static hosts (e.g. GitHub Pages)
+      }
+
+      if (!rows) {
+        rows = await fetchPublicSheetCatalog();
+      }
+
+      if (rows && rows.length > 0) {
+        setCatalogItems(buildCatalogItems(rows));
         if (forceRefresh) {
           setToastMessage('Harga katalog diperbarui dari Google Sheets');
         }

@@ -13,6 +13,17 @@ import {
 
 export const ADMIN_WHATSAPP_NUMBER = '6285156065215';
 
+export const PUBLIC_SHEET_CSV_URL =
+  'https://docs.google.com/spreadsheets/d/1_mWbs0QHCOS_Q7F2J2Q2eeBDRQeRRwd5vZym-FxghK8/export?format=csv&gid=401798683';
+
+export function assetUrl(path: string): string {
+  if (/^https?:\/\//i.test(path) || path.startsWith('data:')) return path;
+  const base = import.meta.env.BASE_URL || '/';
+  const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+  if (path.startsWith(normalizedBase)) return path;
+  return `${normalizedBase}${path.replace(/^\/+/, '')}`;
+}
+
 export const SERIES_ORDER: Exclude<BlankoSeries, 'Semua'>[] = [
   'BU & U',
   'AVIS',
@@ -333,7 +344,7 @@ const MODEL_IMAGE_OVERRIDES: Record<string, string> = {
 function getItemImage(row: RawBlankoRow): string {
   const normalizedModel = row.model.trim().toUpperCase().replace(/\s+/g, ' ');
   if (MODEL_IMAGE_OVERRIDES[normalizedModel]) {
-    return MODEL_IMAGE_OVERRIDES[normalizedModel];
+    return assetUrl(MODEL_IMAGE_OVERRIDES[normalizedModel]);
   }
   if (
     /^(BU|U)\s*0[1-6]$/i.test(normalizedModel) ||
@@ -341,7 +352,112 @@ function getItemImage(row: RawBlankoRow): string {
     row.model === 'BU 01 - 06'
   )
     return imgKraftRustic;
-  return SERIES_VISUALS[row.series].image;
+  return assetUrl(SERIES_VISUALS[row.series].image);
+}
+
+const EXCLUDED_MODEL_PATTERNS = [
+  /^HC\s*179\s*-\s*180$/i,
+  /^HC\s*181\s*-\s*184$/i,
+  /^HC\s*185\s*-\s*186$/i,
+  /^JAVA\s*ETNIC$/i,
+  /^INDIE\s*TP\s*FOIL$/i,
+  /^INDIE\s*FOIL$/i,
+  /^SC/i,
+];
+
+function parseCsvLine(line: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (ch === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += ch;
+    }
+  }
+  result.push(current.trim());
+  return result;
+}
+
+function resolveSeriesFromModel(model: string): RawBlankoRow['series'] {
+  const upper = model.toUpperCase();
+  if (upper.startsWith('AVIS')) return 'AVIS';
+  if (upper.startsWith('CANTIK')) return 'CANTIK';
+  if (upper.startsWith('HC')) return 'HC';
+  if (upper.startsWith('HEPI')) return 'HEPI';
+  if (upper.startsWith('GS')) return 'GS';
+  if (upper.startsWith('RAYYA')) return 'RAYYA';
+  return 'BU & U';
+}
+
+function expandModelRange(model: string): string[] {
+  const match = model.trim().match(/^(BU|U)\s*0?1\s*-\s*0?6$/i);
+  if (!match) return [model];
+  const prefix = match[1].toUpperCase();
+  return ['01', '02', '03', '04', '05', '06'].map((num) => `${prefix} ${num}`);
+}
+
+export async function fetchPublicSheetCatalog(): Promise<RawBlankoRow[]> {
+  const response = await fetch(PUBLIC_SHEET_CSV_URL, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`Sheet fetch failed: ${response.status}`);
+  }
+  const csvText = await response.text();
+  const lines = csvText.split(/\r?\n/).filter((l) => l.trim().length > 0);
+  if (lines.length < 2) {
+    throw new Error('Sheet CSV empty');
+  }
+
+  const headers = parseCsvLine(lines[0]).map((h) => h.toUpperCase());
+  const modelIdx = headers.findIndex((h) => h === 'MODEL');
+  const jualIdx = headers.findIndex((h) => h === 'JUAL');
+  const mIdx = modelIdx >= 0 ? modelIdx : 0;
+  const jIdx = jualIdx >= 0 ? jualIdx : 8;
+
+  const seenModels = new Set<string>();
+  const parsed: RawBlankoRow[] = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCsvLine(lines[i]);
+    const model = (cols[mIdx] || '').trim();
+    const compact = model.replace(/\s+/g, ' ');
+    if (!compact || EXCLUDED_MODEL_PATTERNS.some((p) => p.test(compact))) {
+      continue;
+    }
+
+    const digits = (cols[jIdx] || '').replace(/[^\d]/g, '');
+    const rawPrice = digits ? parseInt(digits, 10) : 0;
+    if (rawPrice <= 0) continue;
+
+    const sellingPrice = Math.max(1000, rawPrice);
+    for (const expanded of expandModelRange(compact)) {
+      const key = expanded.toUpperCase();
+      if (seenModels.has(key)) continue;
+      seenModels.add(key);
+      parsed.push({
+        model: expanded,
+        series: resolveSeriesFromModel(expanded),
+        sellingPrice,
+        minQty: 100,
+      });
+    }
+  }
+
+  if (parsed.length === 0) {
+    throw new Error('No catalog items parsed from CSV');
+  }
+  return parsed;
 }
 
 export function buildCatalogItems(rows: RawBlankoRow[]): CatalogItem[] {

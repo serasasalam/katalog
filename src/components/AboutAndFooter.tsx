@@ -1,5 +1,5 @@
 import { ArrowUpRight, Instagram, Mail, MapPin, MessageCircle } from 'lucide-react';
-import { ADMIN_WHATSAPP_NUMBER } from '../data/catalog';
+import { ADMIN_WHATSAPP_NUMBER, assetUrl } from '../data/catalog';
 import { BlankoSeries } from '../types/catalog';
 
 interface AboutAndFooterProps {
@@ -96,7 +96,7 @@ export default function AboutAndFooter({
                 className="inline-block"
               >
                 <img
-                  src="/assets/aistudio/LOGO_COMEBACK_af017ec3.png"
+                  src={assetUrl('assets/aistudio/LOGO_COMEBACK_af017ec3.png')}
                   alt="Serasa Salam Undangan Lembang"
                   className="h-9 sm:h-11 w-auto object-contain"
                 />

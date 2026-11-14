@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Heart, Menu, Search, ShoppingBag, X } from 'lucide-react';
+import { assetUrl } from '../data/catalog';
 
 interface NavbarProps {
   cartCount: number;
@@ -36,7 +37,7 @@ export default function Navbar({
           className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E] rounded-md py-1"
         >
           <img
-            src="/assets/aistudio/LOGO_COMEBACK_af017ec3.png"
+            src={assetUrl('assets/aistudio/LOGO_COMEBACK_af017ec3.png')}
             alt="Serasa Salam Undangan Lembang"
             className="h-7 sm:h-9 w-auto object-contain"
           />
