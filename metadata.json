@@ -1,0 +1,6 @@
+{
+  "name": "Serasa Salam Undangan",
+  "description": "Katalog resmi undangan cetak pernikahan minimalis, elegan, dan eksklusif dari Serasa Salam Undangan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
