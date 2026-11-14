@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import type { PointerEvent } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Star } from 'lucide-react';
-import { HERO_SHOWCASE_SLIDES } from '../data/catalog';
+import { DIGITAL_INVITATION_URL, HERO_SHOWCASE_SLIDES } from '../data/catalog';
 import { BlankoSeries } from '../types/catalog';
 
 interface HeroSectionProps {
@@ -129,21 +129,31 @@ export default function HeroSection({
             </p>
 
             {/* Primary & Secondary Actions */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 pt-1">
               <button
                 type="button"
                 onClick={onScrollToCatalog}
-                className="flex-1 sm:flex-none inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-[#7D622E] px-6 py-2.5 text-sm font-medium text-white hover:bg-[#634C22] active:scale-[0.99] transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E] focus-visible:ring-offset-2"
+                className="inline-flex min-h-[46px] items-center justify-center gap-1.5 sm:gap-2 rounded-full bg-[#7D622E] px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-medium text-white hover:bg-[#634C22] active:scale-[0.99] transition-all cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E] focus-visible:ring-offset-2"
               >
                 <span>Jelajahi Katalog</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 shrink-0" />
               </button>
 
               <a
-                href="#kategori"
-                className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[#E6E0D4] sm:border-transparent bg-white sm:bg-transparent px-4 sm:px-2 text-sm font-medium text-[#1E1A14] sm:underline sm:underline-offset-4 sm:decoration-[#1E1A14]/30 hover:border-[#7D622E]/40 hover:text-[#7D622E] transition-colors whitespace-nowrap shrink-0"
+                href={DIGITAL_INVITATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[46px] items-center justify-center gap-1.5 rounded-full border border-[#7D622E]/45 bg-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#7D622E] hover:bg-[#F4EFE4] hover:border-[#7D622E] active:scale-[0.99] transition-all whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E] focus-visible:ring-offset-2"
               >
-                Lihat Seri
+                <span>Undangan Digital</span>
+                <ArrowUpRight className="h-4 w-4 shrink-0" />
+              </a>
+
+              <a
+                href="#kategori"
+                className="col-span-2 sm:col-span-1 inline-flex min-h-[42px] sm:min-h-[44px] items-center justify-center rounded-full border border-[#E6E0D4] sm:border-transparent bg-white sm:bg-transparent px-4 sm:px-2 text-xs sm:text-sm font-medium text-[#1E1A14] sm:underline sm:underline-offset-4 sm:decoration-[#1E1A14]/30 hover:border-[#7D622E]/40 hover:text-[#7D622E] transition-colors whitespace-nowrap shrink-0"
+              >
+                Lihat Semua Seri
               </a>
             </div>
 

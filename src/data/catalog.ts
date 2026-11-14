@@ -7,6 +7,9 @@ import {
 
 export const ADMIN_WHATSAPP_NUMBER = '6285156065215';
 
+export const DIGITAL_INVITATION_URL =
+  'https://smstory.id/katalog-tema?sr=serasa-salam';
+
 export const PUBLIC_SHEET_CSV_URL =
   'https://docs.google.com/spreadsheets/d/1_mWbs0QHCOS_Q7F2J2Q2eeBDRQeRRwd5vZym-FxghK8/export?format=csv&gid=401798683';
 

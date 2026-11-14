@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Heart, Menu, Search, ShoppingBag, X } from 'lucide-react';
-import { assetUrl } from '../data/catalog';
+import { ArrowUpRight, Heart, Menu, Search, ShoppingBag, X } from 'lucide-react';
+import { assetUrl, DIGITAL_INVITATION_URL } from '../data/catalog';
 
 interface NavbarProps {
   cartCount: number;
@@ -43,10 +43,10 @@ export default function Navbar({
           />
         </a>
 
-        {/* Zone 2: Clean single-line nav links (desktop) */}
+        {/* Zone 2: Clean single-line nav links (desktop lg+) */}
         <nav
           aria-label="Navigasi utama"
-          className="hidden md:flex items-center gap-7 text-sm font-medium text-[#635B4E]"
+          className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#635B4E]"
         >
           {NAV_LINKS.map((item) => (
             <a
@@ -65,7 +65,7 @@ export default function Navbar({
             type="button"
             onClick={onFocusSearch}
             aria-label="Cari model undangan"
-            className="flex h-11 w-11 sm:h-10 sm:w-10 items-center justify-center rounded-full text-[#1E1A14] hover:bg-[#F5F2EB] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E]"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#1E1A14] hover:bg-[#F5F2EB] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E]"
           >
             <Search className="h-[18px] w-[18px]" strokeWidth={1.8} />
           </button>
@@ -74,7 +74,7 @@ export default function Navbar({
             type="button"
             onClick={onOpenWishlist}
             aria-label={`Favorit (${wishlistCount})`}
-            className="relative flex h-11 w-11 sm:h-10 sm:w-10 items-center justify-center rounded-full text-[#1E1A14] hover:bg-[#F5F2EB] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E]"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#1E1A14] hover:bg-[#F5F2EB] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E]"
           >
             <Heart className="h-[18px] w-[18px]" strokeWidth={1.8} />
             {wishlistCount > 0 && (
@@ -83,6 +83,17 @@ export default function Navbar({
               </span>
             )}
           </button>
+
+          {/* Direct Undangan Digital Shortcut (Always visible on Tablet & Desktop) */}
+          <a
+            href={DIGITAL_INVITATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex h-10 items-center gap-1.5 rounded-full border border-[#7D622E]/45 bg-[#FAF8F4] px-3.5 text-xs sm:text-sm font-semibold text-[#7D622E] hover:bg-[#F4EFE4] hover:border-[#7D622E] active:scale-[0.98] transition-all whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E] focus-visible:ring-offset-2"
+          >
+            <span>Undangan Digital</span>
+            <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
+          </a>
 
           <button
             type="button"
@@ -100,7 +111,7 @@ export default function Navbar({
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label={mobileMenuOpen ? 'Tutup menu' : 'Buka menu navigasi'}
             aria-expanded={mobileMenuOpen}
-            className="flex md:hidden h-11 w-11 items-center justify-center rounded-full text-[#1E1A14] hover:bg-[#F5F2EB] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E]"
+            className="flex lg:hidden h-10 w-10 items-center justify-center rounded-full text-[#1E1A14] hover:bg-[#F5F2EB] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7D622E]"
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" strokeWidth={1.8} />
@@ -111,11 +122,29 @@ export default function Navbar({
         </div>
       </div>
 
-      {/* Mobile navigation panel */}
+      {/* Always-accessible Sticky Mobile Quick-Shortcut Strip (< sm) */}
+      <div className="sm:hidden border-t border-[#E6E0D4] bg-[#FAF8F4]/95 px-4 py-1.5">
+        <a
+          href={DIGITAL_INVITATION_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex min-h-[36px] items-center justify-between gap-2 text-xs text-[#3F392F] active:opacity-80"
+        >
+          <span className="truncate font-medium">
+            Butuh <strong className="font-semibold text-[#1E1A14]">Undangan Digital</strong> (Website)?
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#7D622E] px-3 py-1 text-[11px] font-semibold text-white whitespace-nowrap">
+            <span>Buka Katalog</span>
+            <ArrowUpRight className="h-3 w-3 shrink-0" />
+          </span>
+        </a>
+      </div>
+
+      {/* Mobile & Tablet navigation drawer (< lg) */}
       {mobileMenuOpen && (
         <nav
-          aria-label="Navigasi seluler"
-          className="md:hidden border-t border-[#E6E0D4] bg-white px-4 py-3"
+          aria-label="Navigasi seluler dan tablet"
+          className="lg:hidden border-t border-[#E6E0D4] bg-white px-4 py-3"
         >
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map((item) => (
@@ -128,6 +157,16 @@ export default function Navbar({
                 {item.label}
               </a>
             ))}
+            <a
+              href={DIGITAL_INVITATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-1 flex min-h-[44px] items-center justify-between rounded-xl border border-[#7D622E]/35 bg-[#FAF8F4] px-3 text-sm font-semibold text-[#7D622E] hover:bg-[#F4EFE4] transition-colors"
+            >
+              <span>Katalog Undangan Digital</span>
+              <ArrowUpRight className="h-4 w-4 shrink-0" />
+            </a>
           </div>
         </nav>
       )}

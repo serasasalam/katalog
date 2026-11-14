@@ -1,5 +1,9 @@
 import { ArrowUpRight, Instagram, Mail, MapPin, MessageCircle } from 'lucide-react';
-import { ADMIN_WHATSAPP_NUMBER, assetUrl } from '../data/catalog';
+import {
+  ADMIN_WHATSAPP_NUMBER,
+  assetUrl,
+  DIGITAL_INVITATION_URL,
+} from '../data/catalog';
 import { BlankoSeries } from '../types/catalog';
 
 interface AboutAndFooterProps {
@@ -193,6 +197,15 @@ export default function AboutAndFooter({
                     className="inline-flex min-h-[42px] items-center gap-1.5 rounded-full bg-[#7D622E] px-4 py-2 text-xs font-semibold text-white hover:bg-[#634C22] transition-colors"
                   >
                     <span>WhatsApp Studio</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                  <a
+                    href={DIGITAL_INVITATION_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[42px] items-center gap-1.5 rounded-full border border-[#7D622E]/40 bg-white px-4 py-2 text-xs font-semibold text-[#7D622E] hover:bg-[#F4EFE4] hover:border-[#7D622E] transition-colors"
+                  >
+                    <span>Undangan Digital</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                   <a
