@@ -4,6 +4,7 @@ import AboutAndFooter from './components/AboutAndFooter';
 import CartDrawer from './components/CartDrawer';
 import CatalogSection from './components/CatalogSection';
 import CategoryBento from './components/CategoryBento';
+import CustomInvitationSection from './components/CustomInvitationSection';
 import HeroSection from './components/HeroSection';
 import Navbar from './components/Navbar';
 import ProductDetailModal from './components/ProductDetailModal';
@@ -45,6 +46,7 @@ export default function App() {
   );
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+  const [isCustomModalOpen, setIsCustomModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement | null>(null);
@@ -337,10 +339,14 @@ export default function App() {
     cartSummary.modelCount > 0 &&
     !isCartOpen &&
     !isWishlistOpen &&
+    !isCustomModalOpen &&
     !selectedProduct;
 
   const isAnyOverlayOpen =
-    Boolean(selectedProduct) || isCartOpen || isWishlistOpen;
+    Boolean(selectedProduct) ||
+    isCartOpen ||
+    isWishlistOpen ||
+    isCustomModalOpen;
 
   useEffect(() => {
     if (!isAnyOverlayOpen) return;
@@ -429,6 +435,11 @@ export default function App() {
           onRefreshCatalog={() => syncCatalogFromSheet(true)}
           isSyncing={isSyncing}
           searchInputRef={searchInputRef}
+        />
+
+        <CustomInvitationSection
+          isModalOpen={isCustomModalOpen}
+          onModalOpenChange={setIsCustomModalOpen}
         />
 
         <AboutAndFooter onSelectSeries={handleSelectSeries} />

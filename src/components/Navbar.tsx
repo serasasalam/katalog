@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { label: 'Beranda', href: '#beranda' },
   { label: 'Kategori', href: '#kategori' },
   { label: 'Katalog', href: '#katalog' },
+  { label: 'Cetak Custom', href: '#custom' },
   { label: 'Cara Pesan', href: '#cara-pesan' },
   { label: 'Kontak', href: '#kontak' },
 ];

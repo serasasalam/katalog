@@ -154,6 +154,14 @@ export default function AboutAndFooter({
                     Seri RAYYA &amp; BU / U
                   </button>
                 </li>
+                <li>
+                  <a
+                    href="#custom"
+                    className="min-h-[36px] md:min-h-0 inline-flex items-center font-semibold text-[#7D622E] hover:underline underline-offset-4"
+                  >
+                    Cetak Custom (Mulai Rp 2.500)
+                  </a>
+                </li>
               </ul>
             </div>
 

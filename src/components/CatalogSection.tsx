@@ -407,6 +407,24 @@ export default function CatalogSection({
             </button>
           </div>
         )}
+        {/* Callout to Undangan Cetak Custom */}
+        <div className="mt-8 sm:mt-10 rounded-2xl bg-white border border-[#E6E0D4] p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-[#7D622E]">
+              Varian Undangan Cetak Custom · Mulai Rp 2.500/pcs
+            </p>
+            <p className="text-sm sm:text-base font-semibold text-[#1E1A14]">
+              Ingin desain bebas dari nol, ganti bahan, atau tambah finishing
+              khusus?
+            </p>
+          </div>
+          <a
+            href="#custom"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-[#7D622E]/45 bg-[#FAF8F4] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#7D622E] hover:bg-[#F4EFE4] hover:border-[#7D622E] transition-colors whitespace-nowrap shrink-0"
+          >
+            Konsultasi Cetak Custom →
+          </a>
+        </div>
       </div>
     </section>
   );
